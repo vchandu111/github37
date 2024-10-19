@@ -1,0 +1,59 @@
+#cart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid teal;
+}
+
+th,
+td {
+  padding: 10px;
+}
+
+img {
+  width: 100px;
+  height: auto;
+}
+
+#totalPrice {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#emptyCart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 1;
+    transform: rotate(360deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+
+.fa-bag-shopping {
+  font-size: 80px;
+  color: coral;
+  animation: slide-in 2s infinite ease-out;
+}
