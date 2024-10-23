@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job App</title>
+    <link rel="stylesheet" href="./job.css" />
+  </head>
+  <body>
+    <label for="sortBySalary">Sort by Salary</label>
+    <select id="sortBySalary">
+      <option value="default">Default</option>
+      <option value="asc">Ascending</option>
+      <option value="desc">Descending</option>
+    </select>
+
+    <!-- Filter by Job Type -->
+    <label for="filtering">Filter by Job Type</label>
+    <select id="filtering">
+      <option value="all">All</option>
+      <option value="fulltime">Full Time</option>
+      <option value="parttime">Part Time</option>
+    </select>
+    <div id="job-list"></div>
+
+    <!-- Pagination -->
+
+    <div id="pagination-controls">
+      <button id="prev-page" onclick="changePage('prev')">Previous</button>
+      <span id="page-info"></span>
+      <button id="next-page" onclick="changePage('next')">Next</button>
+    </div>
+  </body>
+</html>
+
+<script src="./jobs2.js"></script>

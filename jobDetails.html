@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Details</title>
+    <link rel="stylesheet" href="./job.css" />
+  </head>
+  <body>
+    <div id="job-details"></div>
+  </body>
+</html>
+
+<script>
+  async function fetchJobDetails() {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    console.log(urlParams);
+    const jobId = urlParams.get("jobId");
+    console.log(jobId);
+    try {
+      const res = await fetch(
+        `https://6717be3fb910c6a6e029c217.mockapi.io/api/jobList/${jobId}`
+      );
+
+      const job = await res.json();
+      console.log(job);
+      displayJobDetails([job]);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  function displayJobDetails(array) {
+    console.log(array);
+    let jobCards = "";
+    array.forEach((job) => {
+      let date = job.createdAt.split("T")[0];
+      jobCards += `
+        <div class="job-card">
+          <div class='date'>${date}</div>
+          <div class="job-content">
+              <h2>${job.company} (${job.role})</h2>
+          </div>
+          <div class="job-tags">
+          <span>${job.fullTime ? "Full-Time" : "Part-Time"}</span>
+          <span>${job.country}</span>
+        </div>
+        <div class="job-footer">
+                  <p>$${job.salary}/hr</p>
+                  <a href="./jobDetails.html?jobId=${job.id}">Details</a>
+                </div>
+        </div>
+        `;
+    });
+    document.getElementById("job-details").innerHTML = jobCards;
+  }
+  fetchJobDetails();
+</script>
