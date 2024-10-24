@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firebase DB</title>
+    <link rel="stylesheet" href="./fb.css" />
+  </head>
+  <body>
+    <div class="card-container" id="userCards"></div>
+  </body>
+</html>
+
+<script>
+  fetchUsers();
+
+  function fetchUsers() {
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(
+      "https://mock-apis-144c0-default-rtdb.firebaseio.com/users.json",
+      requestOptions
+    )
+      .then((resp) => resp.json())
+      .then((users) => displayUsers(users))
+      .catch((err) => conosle.error(err));
+  }
+
+  function displayUsers(users) {
+    const container = document.getElementById("userCards");
+    container.innerHTML = "";
+
+    Object.entries(users).forEach(([userID, user]) => {
+      const card = document.createElement("div");
+      card.setAttribute("class", "card");
+      card.innerHTML = `
+            <h2>${user.name}</h2>
+            <p>${user.email}</p>
+            <button class='edit-btn' onclick="editUser(${userID})">Edit</button>
+            <button class='delete-btn' onclick="deleteUser(${userID})">Delete</button>
+        `;
+      container.appendChild(card);
+    });
+  }
+
+  function editUser(id) {
+    console.log(`Edit user with ${id}`);
+    window.location.href = `edit.html?userId=${id}`;
+  }
+
+  function deleteUser(id) {
+    console.log(`Delete user with ${id}`);
+    if (!confirm(`Are you sure you want to delete the user with ID ${id} ?`))
+      return;
+    fetch(
+      `https://mock-apis-144c0-default-rtdb.firebaseio.com/users/${id}.json`,
+      {
+        method: "DELETE",
+        redirect: "follow",
+      }
+    )
+      .then((resp) => resp.json())
+      .then(() => {
+        alert(`User with id: ${id} is deleted successfully`);
+        fetchUsers();
+      })
+      .catch((err) => console.error(`Error in deleting the user: ${id}`));
+  }
+</script>
