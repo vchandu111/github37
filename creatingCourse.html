@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create a course</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <h1>Create a new course</h1>
+    <form id="courseForm">
+      <label for="title"
+        >Title:
+        <input
+          type="text"
+          id="title"
+          placeholder="Enter title"
+          required
+        /> </label
+      ><br /><br />
+
+      <label for="instructor">Instructor:</label>
+      <input
+        type="text"
+        id="instructor"
+        placeholder="Enter Instructor"
+        required
+      /><br /><br />
+
+      <label for="lectures">Lectures:</label>
+      <input
+        type="text"
+        id="lectures"
+        placeholder="Enter Lectures"
+        required
+      /><br /><br />
+
+      <label for="level">Level:</label>
+      <select name="" id="level">
+        <option value="">Select Level</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Advanced">Advanced</option>
+      </select>
+      <br /><br />
+
+      <label for="price">Price:</label>
+      <input
+        type="number"
+        id="price"
+        placeholder="Enter Price"
+        required
+      /><br /><br />
+
+      <label for="rating">Rating:</label>
+      <input
+        type="number"
+        step="0.1"
+        id="rating"
+        placeholder="Enter Rating"
+        required
+      /><br /><br />
+
+      <label for="reviews">Reviews:</label>
+      <input
+        type="number"
+        id="reviews"
+        placeholder="Enter Reviews"
+        required
+      /><br /><br />
+
+      <label for="hrs">Total hours:</label>
+      <input
+        type="numbers"
+        step="0.1"
+        id="hrs"
+        placeholder="Enter total hours"
+        required
+      /><br /><br />
+
+      <label for="bestseller">Bestseller:</label>
+      <input type="checkbox" step="0.1" id="bestseller" /><br /><br />
+      <input type="submit" value="Create course" />
+    </form>
+  </body>
+</html>
+
+<script src="./creatingCourse.js"></script>
