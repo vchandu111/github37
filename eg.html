@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPhone Eg</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  // 1. With Factory Functions
+  function createIphone(color, display, camera, bluetooth) {
+    return {
+      color,
+      display,
+      camera,
+      bluetooth,
+      dial: function () {
+        return `tring... tring...`;
+      },
+      sendMessage: function () {
+        return `Sending Message`;
+      },
+    };
+  }
+
+  let i5 = createIphone("Black", "5.5", "12 MP", "5.0");
+  console.log(i5);
+  console.log(i5.dial());
+
+  //   2. Consructor Functions
+  function Iphone(color, display, camera, bluetooth) {
+    this.color = color;
+    this.display = display;
+    this.camera = camera;
+    this.bluetooth = bluetooth;
+    this.dial = function () {
+      return `tring... tring...`;
+    };
+    this.sendMessage = function () {
+      return `Sending Message`;
+    };
+  }
+
+  let constrI5 = new Iphone("Black", "5.5", "12 MP", "5.0");
+  console.log(constrI5);
+  console.log(constrI5.sendMessage());
+
+  //   3. Using Classes
+  class Iphone5 {
+    constructor(color, display, camera, bluetooth) {
+      this.color = color;
+      this.display = display;
+      this.camera = camera;
+      this.bluetooth = bluetooth;
+    }
+    dial() {
+      return `tring... tring...`;
+    }
+    sendMessage() {
+      return `Sending Message`;
+    }
+  }
+
+  let newI5 = new Iphone5("Black", "5.5", "12 MP", "5.0");
+  console.log(newI5);
+  console.log(newI5.dial());
+</script>

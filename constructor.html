@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Constructor Functions</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+
+    // Prototypal Inheritance 
+  function Person(name, gender, birthYear = 1980) {
+    this.fullName = name;
+    this.gender = gender;
+    this.birthYear = birthYear;
+
+    this.calcAge = function () {
+      console.log(2024 - birthYear);
+    };
+  }
+  console.log(Person);
+  let person1 = new Person("Jane Doe", "Female", 1990);
+  let person2 = new Person("Bob Kirk", "Male");
+  console.log(person1);
+  console.log(person2);
+
+  let obj = new Object();
+
+  let b = new String();
+
+  const c = new String("Bob");
+
+  let d = new Number();
+
+  console.log(obj, "object with new keyword");
+  console.log(b, "string with new keyword");
+  console.log(c, "string with value and with new keyword");
+  console.log(d, "number with new keyword");
+
+</script>

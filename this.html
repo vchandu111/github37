@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Window in HTML</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  //   let a = this;
+
+  //   console.log(a);
+
+  //   this.name = "Jane";
+  //   console.log(window.name);
+  //   let person1 = {
+  //     firstName: "Jane",
+  //     lastName: "Doe",
+  //     getFullName() {
+  //       return `${this.firstName} ${this.lastName}`;
+  //     },
+  //   };
+
+  //   let person2 = {
+  //     firstName: "Bob",
+  //     lastName: "Kirk",
+  //     getFullName() {
+  //       return `${this.firstName} ${this.lastName}`;
+  //     },
+  //   };
+
+  function createPerson(firstName, lastName) {
+    return {
+      firstName,
+      lastName,
+      getFullName() {
+        return `${this.firstName} ${this.lastName}`;
+      },
+    };
+  }
+  let person1 = createPerson("Jane", "Doe");
+
+  person1.age = 30;
+
+  let person2 = createPerson("Bob", "Kirk");
+  console.log(person1, person2);
+</script>
