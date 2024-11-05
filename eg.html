@@ -3,67 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IPhone Eg</title>
+    <title>Eg</title>
   </head>
-  <body></body>
+  <body>
+    <h1>Inception</h1>
+    <button onclick="getDescription()">Description</button>
+    <button>Recent?</button>
+  </body>
 </html>
 
 <script>
-  // 1. With Factory Functions
-  function createIphone(color, display, camera, bluetooth) {
-    return {
-      color,
-      display,
-      camera,
-      bluetooth,
-      dial: function () {
-        return `tring... tring...`;
-      },
-      sendMessage: function () {
-        return `Sending Message`;
-      },
-    };
-  }
-
-  let i5 = createIphone("Black", "5.5", "12 MP", "5.0");
-  console.log(i5);
-  console.log(i5.dial());
-
-  //   2. Consructor Functions
-  function Iphone(color, display, camera, bluetooth) {
-    this.color = color;
-    this.display = display;
-    this.camera = camera;
-    this.bluetooth = bluetooth;
-    this.dial = function () {
-      return `tring... tring...`;
-    };
-    this.sendMessage = function () {
-      return `Sending Message`;
-    };
-  }
-
-  let constrI5 = new Iphone("Black", "5.5", "12 MP", "5.0");
-  console.log(constrI5);
-  console.log(constrI5.sendMessage());
-
-  //   3. Using Classes
-  class Iphone5 {
-    constructor(color, display, camera, bluetooth) {
-      this.color = color;
-      this.display = display;
-      this.camera = camera;
-      this.bluetooth = bluetooth;
+    const movies = [{title:'Inception',director:'Christopher Nolan',year:2010},'Pushpa2']
+  class Movie {
+    constructor(title, director, releaseYear) {
+      this.title = title;
+      this.director = director;
+      this.releaseYear = releaseYear;
     }
-    dial() {
-      return `tring... tring...`;
+
+    describeMovie() {
+      console.log(
+        `${this.title} is a film directed by ${this.director} and released in the year ${this.releaseYear}`
+      );
     }
-    sendMessage() {
-      return `Sending Message`;
+
+    isRecent() {
+      const currentYear = 2024;
+      const recent = currentYear - this.releaseYear <= 5;
+      if (recent) console.log(`${this.title} is a recent release`);
+      else console.log(`${this.title} is not a recent release`);
     }
   }
 
-  let newI5 = new Iphone5("Black", "5.5", "12 MP", "5.0");
-  console.log(newI5);
-  console.log(newI5.dial());
+  const inception = new Movie("Inception", "Christopher Nolan", 2010);
+  inception.describeMovie();
+  inception.isRecent();
 </script>
