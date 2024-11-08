@@ -1,0 +1,55 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  background-color: bisque;
+}
+
+#movieSearch {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px;
+  font-size: 20px;
+  border: 1px solid #71c8c9;
+  outline: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+#movieSearch:focus {
+  border-color: #4c4290;
+}
+
+h1 {
+  color: navy;
+}
+
+#movieResults {
+  width: 100%;
+  max-width: 500px;
+  list-style-type: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: white;
+}
+
+li {
+  cursor: pointer;
+  padding: 20px;
+  color: darkmagenta;
+}
+
+#movieDetails {
+  max-width: 500px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+img {
+  max-width: 150px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

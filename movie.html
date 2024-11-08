@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./movie.css" />
+  </head>
+  <body>
+    <h1>Movie Search App</h1>
+
+    <input type="text" id="movieSearch" placeholder="Search for a movie" />
+
+    <div onclick>
+      <button onclick></button>
+    </div>
+
+    addEventListener(click,functionName,true)
+
+    <!-- capturing phase -->
+
+    <!-- bubbling phase -->
+
+    <ul id="movieResults"></ul>
+    <div id="movieDetails"></div>
+  </body>
+</html>
+
+<script>
+  let apiKey = "7a7192f4";
+  let searchTimer;
+
+  let searchKeyword = document.getElementById("movieSearch");
+
+  searchKeyword.addEventListener("change", debouncedSearch);
+
+  function debouncedSearch() {
+    console.log("debounced??");
+    clearTimeout(searchTimer);
+
+    searchTimer = setTimeout(function () {
+      searchMovies();
+    }, 500);
+  }
+
+  function searchMovies() {
+    console.log("search movies function");
+    if (searchKeyword.value.length >= 2) {
+      fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchKeyword.value}`)
+        .then((resp) => resp.json())
+        .then((res) => displayResults(res.Search))
+        .catch((err) => console.error(err));
+    }
+  }
+
+  function displayResults(movies) {
+    const moviesList = document.getElementById("movieResults");
+    moviesList.innerHTML = "";
+    movies.forEach((movie) => {
+      const li = document.createElement("li");
+      li.textContent = movie.Title;
+      li.onclick = () => displayMovieDetails(movie.imdbID);
+      moviesList.appendChild(li);
+    });
+  }
+
+  function displayMovieDetails(movieId) {
+    fetch(`http://www.omdbapi.com/?apikey=${apiKey}&i=${movieId}`)
+      .then((resp) => resp.json())
+      .then((res) => {
+        const movieDetails = document.querySelector("#movieDetails");
+        movieDetails.innerHTML = `
+        <img src="${res.Poster}" alt="${res.Title}" />
+        <div>
+            <h2>${res.Title}</h2>
+            <p><strong>Year:</strong> ${res.Year}</p>
+            <p><strong>Genre:</strong> ${res.Genre}</p>
+            <p><strong>Plot:</strong> ${res.Plot}</p>
+            </div>
+        `;
+      })
+      .catch((err) => console.error(err));
+  }
+</script>

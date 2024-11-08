@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community Library</title>
+    <link rel="stylesheet" href="./library.css" />
+  </head>
+  <body>
+    <h1>Community Library</h1>
+    <div id="container">
+      <div class="member-section">
+        <h2>Choose Member</h2>
+        <button onclick="createMember('regular')">Add Regular Member</button>
+        <button onclick="createMember('premium')">Add Premium Member</button>
+        <br />
+        <label for="memberSelect">Select Member: </label>
+        <select id="memberSelect" onchange="selectMember()">
+          <option value="">Select a member</option>
+        </select>
+        <p id="selectedMemberName">Selected Member: None</p>
+        <p id="borrowLimit">Borrow Limit: 0</p>
+        <p id="borrowedBooks">Borrowed Books:0</p>
+      </div>
+
+      <div class="books-section">
+        <h2>All Books</h2>
+        <ul id="booklist"></ul>
+        <h2>Your Borrowed Books</h2>
+        <ul id="borrowedBooksList"></ul>
+      </div>
+
+      <div class="log-section">
+        <h2>Borrowing Log</h2>
+        <ul id="logList"></ul>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  class Member {
+    constructor(name) {
+      this.name = name;
+      this.borrowedBooks = [];
+    }
+
+    borrowBook(book) {
+      const borrowLimit = this instanceof PremiumMember ? 5 : 3;
+
+      if (!book.isAvailable)
+        logMessage(`The book ${book.title} is already borrowed.`);
+      else if (this.borrowedBooks.length >= borrowLimit)
+        logMessage(
+          `${this.name} has already borrowed ${borrowLimit} books. Return one before borrowing more.`
+        );
+      else {
+        book.isAvailable = false;
+        this.borrowedBooks.push(book);
+        logMessage(`${this.name} has borrowed ${book.title}`);
+        updateUI();
+      }
+    }
+
+    returnBook(book) {}
+  }
+
+  class PremiumMember extends Member {
+    constructor(name) {
+      super(name);
+      this.specialCollectionAccess = true;
+    }
+  }
+
+  function Book(title, author, isAvailable = true) {
+    this.title = title;
+    this.author = author;
+    this.isAvailable = isAvailable;
+  }
+
+  const books = [
+    new Book("The Great Gatsby", "F. Scott Fitzgerald"),
+    new Book("Zero to One", "Peter Thiel"),
+    new Book("1984", "George Orwell"),
+    new Book("War and Peace", "Leo Tolstoy"),
+    new Book("Atomic Habit", "James Clear"),
+    new Book("Harry Potter", "J K Rowling"),
+    new Book("Missile Man", "APJ Abdul Kalam"),
+    new Book("Pride and Prejudice", "Jane Austen"),
+  ];
+
+  const members = [];
+
+  let selectedMember = null;
+  const memberSelect = document.getElementById("memberSelect");
+
+  function generateRandomName() {
+    const consonants = "bcdfghjklmnpqrstvwxyz";
+    const vowels = "aeiou";
+    let name = "";
+    const nameLength = Math.floor(Math.random() * 4) + 4;
+
+    for (let i = 0; i < nameLength; i++) {
+      name +=
+        i % 2 === 0
+          ? consonants[Math.floor(Math.random() * consonants.length)]
+          : vowels[Math.floor(Math.random() * vowels.length)];
+    }
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+
+  function createMember(type) {
+    const name = `${generateRandomName()} (${
+      type === "regular" ? "Regular" : "Premium"
+    })`;
+    const newMember =
+      type === "regular" ? new Member(name) : new PremiumMember(name);
+    members.push(newMember);
+
+    // Display the members adding in select tag
+    const option = document.createElement("option");
+    option.value = members.length - 1;
+    option.textContent = name;
+    memberSelect.append(option);
+
+    alert(`Added new member: ${name}`);
+  }
+
+  function selectMember() {
+    const index = memberSelect.value;
+    if (index) {
+      selectedMember = members[index];
+      document.getElementById(
+        "selectedMemberName"
+      ).textContent = `Selected Member: ${selectedMember.name}`;
+      document.getElementById("borrowLimit").textContent = `Borrow Limit: ${
+        selectedMember instanceof PremiumMember ? 5 : 3
+      }`;
+    } else {
+      selectedMember = null;
+      document.getElementById(
+        "selectedMemberName"
+      ).textContent = `Selected Member: None`;
+      document.getElementById("borrowLimit").textContent = `Borrow Limit: 0`;
+      document.getElementById("borrowedBooks").textContent =
+        "Borrowed Books: 0";
+    }
+    console.log(selectedMember);
+  }
+
+  updateUI();
+
+  function updateUI() {
+    let bookList = document.getElementById("booklist");
+    let borrowedBooksList = document.getElementById("borrowedBooksList");
+    bookList.innerHTML = "";
+    borrowedBooksList.innerHTML = "";
+
+    books.forEach((book, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `<span>${book.title}</span> by ${book.author}`;
+      li.className = book.isAvailable ? "" : "borrowed";
+      if (book.isAvailable) li.onclick = () => borrowBook(index);
+
+      bookList.append(li);
+    });
+
+    if (selectedMember) {
+      selectedMember.borrowedBooks.forEach((book, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `${book.title} <button onclick="returnBook(${index})">Return</button>`;
+        borrowedBooksList.append(li);
+      });
+    }
+  }
+  function returnBook(index) {
+    if (selectedMember) selectedMember.returnBook(books[index]);
+    else logMessage("Please select a member first");
+  }
+  function borrowBook(index) {
+    if (selectedMember) selectedMember.borrowBook(books[index]);
+    else logMessage("Please select a member first");
+  }
+
+  function logMessage(message) {
+    const logList = document.getElementById("logList");
+    const li = document.createElement("li");
+    li.textContent = message;
+    logList.append(li);
+  }
+
+
+  
+</script>
